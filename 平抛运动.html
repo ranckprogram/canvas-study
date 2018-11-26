@@ -1,0 +1,91 @@
+<html>
+
+<head>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        canvas {
+            display: block;
+            margin: 80px auto;
+            border: 1px solid #ddd;
+        }
+        button {
+            display: block;
+            margin: 60px auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <button id="handleBegin">开始</button>
+    <canvas id="canvas" width="800" height="600"></canvas>
+</body>
+<script>
+    var canvas = document.querySelector('#canvas')
+    var ctx = canvas.getContext('2d')
+    var timer
+    ctx.font = "30px Arial";
+
+    function Ball(x, y, r, t, color) {
+        this.x = x
+        this.y = y
+        this.r = r
+        this.t = t
+        this.color = color
+        this.initData = {
+            x,
+            y,
+            r,
+            t
+        }
+    }
+
+    Ball.prototype.init = function () {
+        var init = this.initData
+        this.x = init.x
+        this.y = init.y
+        this.r = init.r
+        this.t = init.t
+    }
+
+    Ball.prototype.render = function () {
+        ctx.beginPath();
+        ctx.fillText('平抛运动', 100, 100)
+
+        ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
+        ctx.fill()
+    }
+
+    Ball.prototype.horizontal = function (vx) {
+        this.x += vx
+    }
+
+    Ball.prototype.vertical = function (g) {
+        if (this.y < 500) {
+            var t = this.t
+            this.t++
+            this.y = g * t * t + this.y
+        } else {
+            clearInterval(timer)
+        }
+
+    }
+
+    var ball = new Ball(30, 30, 24, 0.5, '#f90')
+
+    document.querySelector('#handleBegin').onclick = function () {
+        ball.init()
+        timer = setInterval(function () {
+            ctx.clearRect(0, 0, 800, 600)
+            ball.render()
+            ball.horizontal(36)
+            ball.vertical(0.2)
+        }, 30)
+    } 
+</script>
+
+</html>
