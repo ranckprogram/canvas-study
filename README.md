@@ -15,3 +15,7 @@
 另外，我想通过这些练习掌握几种设计模式
 - 碰撞检测，观察者模式
 - 中介者模式
+
+
+工具
+- Simple JavaScript Inheritance
