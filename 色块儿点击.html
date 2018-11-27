@@ -1,0 +1,61 @@
+<html>
+
+<head>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        canvas {
+            display: block;
+            margin: 80px auto;
+            border: 1px solid #ddd;
+        }
+
+        button {
+            display: block;
+            margin: 60px auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="canvas" width="800" height="600"></canvas>
+</body>
+<script>
+    var canvas = document.querySelector('#canvas')
+    var ctx = canvas.getContext('2d')
+
+    console.dir(ctx)
+
+    function Ball(x, y, width, height, color) {
+        this.x = x
+        this.y = y
+        this.width = width
+        this.height = height
+        this.color = color
+
+    }
+
+    Ball.prototype.render = function () {
+        ctx.beginPath();
+        ctx.fillStyle = (this.color)
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.fill()
+    }
+
+    var ball = new Ball(30, 30, 24, 50, '#f90')
+    ball.render()
+
+    canvas.onclick = function (e) {
+        if (e.layerX > ball.x && e.layerX < ball.x + ball.width && e.layerY > ball.y && e.layerY < ball.y + ball.height) {
+            ball.color = '#f66'
+            ball.render()
+        }
+
+    } 
+</script>
+
+</html>
