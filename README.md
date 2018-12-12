@@ -19,3 +19,7 @@
 
 工具
 - Simple JavaScript Inheritance
+
+> 色块儿点击原理
+
+本质是点击canvas画布后，拿到点击事件的位置，和色块儿区域做范围检测
