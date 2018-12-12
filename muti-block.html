@@ -1,70 +1,81 @@
 <html>
-    
-    <head>
-        <style>
-            * {
-                padding: 0;
-                margin: 0;
-            }
-    
-            canvas {
-                display: block;
-                margin: 80px auto;
-                border: 1px solid #ddd;
-            }
-    
-            button {
-                display: block;
-                margin: 60px auto;
-            }
-        </style>
-    </head>
-    
-    <body>
-    
-        <canvas id="canvas" width="800" height="600"></canvas>
-    </body>
-    <script>
-        var canvas = document.querySelector('#canvas')
-        var ctx = canvas.getContext('2d')
-    
-    
-        function Block(x, y, width, height, color) {
-            this.x = x
-            this.y = y
-            this.width = width
-            this.height = height
-            this.color = color
+
+<head>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
         }
-    
-        Block.prototype.render = function () {
+
+        canvas {
+            display: block;
+            margin: 80px auto;
+            border: 1px solid #ddd;
+        }
+
+        button {
+            display: block;
+            margin: 60px auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="canvas" width="800" height="600"></canvas>
+</body>
+<script>
+    var canvas = document.querySelector('#canvas')
+    var ctx = canvas.getContext('2d')
+
+
+    function Block(x, y, width, height, color) {
+        this.x = x
+        this.y = y
+        this.width = width
+        this.height = height
+        this.color = color
+    }
+
+    Block.prototype.render = function () {
+
+    }
+
+    var blockListRender = function (blockList) {
+        blockList.forEach(block => {
             ctx.beginPath();
-            ctx.fillStyle = (this.color)
-            ctx.fillRect(this.x, this.y, this.width, this.height);
+            ctx.fillStyle = (block.color)
+            ctx.fillRect(block.x, block.y, block.width, block.height);
             ctx.fill()
+        })
+    }
+
+    function CreateBlock() {
+        var blockList = []
+        for (var i = 0; i < 5; i++) {
+            var block = new Block(90 * (i + 1), 30, 60, 50, '#f90')
+            block.render()
+            blockList.push(block)
         }
-    
-        function CreateBlock () {
-            var blockList=[]
-            for (var i = 0;i<5;i++) {
-                var block = new Block(90*(i+1), 30, 60, 50, '#f90')
-                block.render()
-                blockList.push(block)
+        return blockList
+    }
+
+    var blockList = CreateBlock()
+    console.dir(blockList)
+    blockListRender(blockList)
+
+    canvas.onclick = function (e) {
+
+        console.dir(e)
+        blockList.forEach(function (block) {
+            if (e.layerX > block.x && e.layerX < block.x + block.width && e.layerY > block.y && e.layerY < block.y + block.height) {
+                block.color = '#f66'
             }
-            return blockList
-        }
+        })
+        blockListRender(blockList)
 
-        var blockList = CreateBlock()
         console.dir(blockList)
-    
-        canvas.onclick = function (e) {
+    } 
+</script>
 
-            console.dir(e)
-            // if (e.layerX > ball.x && e.layerX < ball.x + ball.width && e.layerY > ball.y && e.layerY < ball.y + ball.height) {
-            //     ball.color = '#f66'
-            //     ball.render()
-            // }
-        } 
-    </script>
-    
-    </html>
+</html>
