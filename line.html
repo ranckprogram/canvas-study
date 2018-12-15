@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #canvas {
+            display: block;
+            border: 1px solid #ddd;
+            margin: 50px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas width="1000" height="800" id='canvas'></canvas>
+    <script>
+        window.onload = function () {
+            var canvas = document.querySelector('#canvas')
+            canvas.width = 1000
+            canvas.height = 1000
+            var ctx = canvas.getContext('2d')
+
+            var lineCount = 19
+            var boxSize = 20
+            var point = 50
+
+
+            for (var i = 0; i < lineCount; i++) {
+                // 横线
+                ctx.moveTo(point, 20 * i + point)
+                ctx.lineTo(410, 20 * i + point)
+
+                // 竖线
+                ctx.moveTo(20 * i + point, point)
+                ctx.lineTo(20 * i + point, 410)
+
+            }
+
+
+            ctx.stroke()
+        }
+    </script>
+</body>
+
+</html>
