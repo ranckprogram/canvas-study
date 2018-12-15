@@ -28,15 +28,16 @@
             var boxSize = 20
             var point = 50
 
+            var lineLength  = point+boxSize*(lineCount-1)
 
             for (var i = 0; i < lineCount; i++) {
                 // 横线
-                ctx.moveTo(point, 20 * i + point)
-                ctx.lineTo(410, 20 * i + point)
+                ctx.moveTo(point, boxSize * i + point)
+                ctx.lineTo(lineLength, boxSize * i + point)
 
                 // 竖线
-                ctx.moveTo(20 * i + point, point)
-                ctx.lineTo(20 * i + point, 410)
+                ctx.moveTo(boxSize * i + point, point)
+                ctx.lineTo(boxSize * i + point, lineLength)
 
             }
 
