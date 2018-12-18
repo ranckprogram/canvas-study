@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        canvas {
+            display: block;
+            border: 1px solid #dddddd;
+            margin: 100px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas width="800" height="600"></canvas>
+    <script>
+        var canvas = document.querySelector('canvas')
+        var ctx = canvas.getContext('2d')
+
+        var imageList = ['images/1.jpg', 'images/2.jpg', 'images/3.jpg', 'images/4.jpg']
+        var len = 0
+        imageList.forEach(image => {
+            var img = new Image()
+            img.src = image
+            
+            img.onload = function () {
+                len++
+                if (len === imageList.length) {
+                    ctx.drawImage(img, 0, 0, 100, 100)
+                }
+
+            }
+        })
+
+        console.dir(canvas)
+    </script>
+</body>
+
+</html>
