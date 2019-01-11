@@ -11,6 +11,7 @@
             padding: 0;
             margin: 0;
         }
+
         canvas {
             background: #000
         }
@@ -31,7 +32,7 @@
                 this.y = 0
                 this.width = 2
                 this.height = 10
-                this.vy = 10
+                this.vy = Math.random() * 10 + 5
             }
 
             Rain.prototype = {
@@ -47,35 +48,32 @@
                     ctx.fillRect(this.x, this.y, this.width, this.height);
                     this.update()
                 },
-                move : function () {
-                    ctx.fillStyle="rgba(0,0,0,0.05)";
-                    ctx.fillRect(0,0,w,h);//毛玻璃
-            console.log("move:")
-            console.log(this);
-            this.update();
+                move: function () {
+                    ctx.fillStyle = "rgba(0,0,0,0.05)"
+                    ctx.fillRect(0, 0, w, h)
+                    this.update()
 
                 }
             }
-            // var rain = new Rain()
-            // setInterval(function () {
-            //     ctx.fillStyle = 'rgba(0,0,0,.1)'
-            //     ctx.fillRect(0, 0, w, h);
-               
-            //     rain.render()
-            // }, 40)
 
-            for(var i=0;i<30;i++){
-    setTimeout(createRain,300*i);//隔300*i ms执行一次createRain
-}//同时创建30个setTimeout，但每个setTimeout开始执行的时间不同
+           var count = 0
 
-function createRain(){
-    var rain=new Rain();
-    rain.init();
-    rain.render();
-   rain.move()
-    //setInterval(rain.move,1000/60);//此时还没有rain
-    //在第0秒就开始执行
-}
+            setInterval(function () {
+                ctx.fillStyle = 'rgba(0,0,0,.1)'
+                ctx.fillRect(0, 0, w, h);
+                // count++
+                if ( count<30) {
+                    Math.random() * 10 >6 && startRun(new Rain())
+                }
+              
+            }, 40)
+           
+           function startRun (obj) {
+                clearInterval(obj.timer)
+                obj.timer = setInterval(function(){
+                    obj.render()
+                }, 40)
+           }
 
 
         }
