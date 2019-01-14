@@ -21,12 +21,23 @@
 <body>
     <canvas id="canvas"></canvas>
     <script>
+
         window.onload = function () {
+            var imageList = ['images/1.jpg', 'images/2.jpg', 'images/3.jpg', 'images/4.jpg']
+            var currentTime = 0
+
+
             var canvas = document.querySelector('#canvas')
             var w = canvas.width = window.innerWidth
             var h = canvas.height = window.innerHeight
             var ctx = canvas.getContext('2d')
-            var rainCount = 500
+            var rainCount = 200
+
+
+            window.onresize = function () {
+                w = canvas.width = window.innerWidth
+                h = canvas.height = window.innerHeight
+            }
 
             function Rain() {
                 this.x = Math.random() * w
@@ -58,22 +69,49 @@
                 }
             }
 
-            setInterval(function () {
-                ctx.fillStyle = 'rgba(0,0,0,.1)'
-                ctx.fillRect(0, 0, w, h);
-
-                if (rainCount-- > 0) {
-                    Math.random() * 10 > 6 && startRun(new Rain())
-                }
-
-            }, 40)
-
             function startRun(obj) {
                 clearInterval(obj.timer)
                 obj.timer = setInterval(function () {
                     obj.render()
                 }, 40)
             }
+
+            setInterval(function () {
+                ctx.fillStyle = 'rgba(0,0,0,.1)'
+                ctx.fillRect(0, 0, w, h)
+                loadImage(imageList, function (images) {
+                    showAtTime(images[parseInt(Math.random() * images.length)], 4 * 1000, 10 * 1000, currentTime)
+                })
+
+                if (rainCount-- > 0) {
+                    Math.random() * 10 > 6 && startRun(new Rain())
+                }
+                currentTime += 40
+            }, 40)
+
+
+            function loadImage(imageList, callback) {
+                var len = 0
+                var images = []
+                imageList.forEach(image => {
+                    var img = new Image()
+                    img.src = image
+                    img.onload = function () {
+                        len++
+                        images.push(img)
+                        if (len === imageList.length) {
+                            callback(images)
+                        }
+                    }
+                })
+            }
+
+            function showAtTime(obj, startTime, endTime, currentTime) {
+                if (currentTime > startTime && currentTime < endTime) {
+                    ctx.drawImage(obj, Math.random() * w, Math.random() * h, 100, 100)
+                }
+            }
+
         }
     </script>
 </body>
