@@ -26,6 +26,7 @@
             var w = canvas.width = window.innerWidth
             var h = canvas.height = window.innerHeight
             var ctx = canvas.getContext('2d')
+            var rainCount = 500
 
             function Rain() {
                 this.x = Math.random() * w
@@ -33,6 +34,7 @@
                 this.width = 2
                 this.height = 10
                 this.vy = Math.random() * 10 + 5
+                this.vx = (Math.random() - 0.5) * (Math.random() * this.vy)  // 随机左右正负
             }
 
             Rain.prototype = {
@@ -42,11 +44,11 @@
                     this.y = 0
                 },
                 update: function () {
-                    if (this.y < h) { 
+                    if (this.y < h) {
                         this.y += this.vy
-                        this.x += (Math.random() * this.vy )  
+                        this.x += this.vx
                     } else {
-                      this.init()  
+                        this.init()
                     }
                 },
                 render: function () {
@@ -56,13 +58,11 @@
                 }
             }
 
-            var count = 0
-
             setInterval(function () {
                 ctx.fillStyle = 'rgba(0,0,0,.1)'
                 ctx.fillRect(0, 0, w, h);
-                count++
-                if (count < 30) {
+
+                if (rainCount-- > 0) {
                     Math.random() * 10 > 6 && startRun(new Rain())
                 }
 
@@ -74,8 +74,6 @@
                     obj.render()
                 }, 40)
             }
-
-
         }
     </script>
 </body>
